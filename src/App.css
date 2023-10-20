@@ -8,3 +8,51 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-settings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-mode-select {
+  width: 200px;
+  padding: 0.5rem;
+}
+
+.game-start-btn {
+  padding: 0.5rem;
+  background-color: aqua;
+  text-transform: uppercase;
+  border: none;
+}
+
+.game-start-btn:hover {
+  cursor: pointer;
+}
+
+.field-row {
+  display: flex;
+}
+
+.fields-cell {
+  width: 10px;
+  height: 10px;
+  background-color: aliceblue;
+  border: 1px solid black;
+}
+
+.active-cell {
+  background-color: aqua;
+}
+
+.game-hovered-cell {
+  height: 300px;
+  overflow-y: scroll;
+}
