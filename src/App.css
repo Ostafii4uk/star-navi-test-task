@@ -1,0 +1,139 @@
+.app {
+  margin: 0 auto;
+  max-width: 1500px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  min-height: 90vh;
+}
+
+.game {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.game-settings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-mode-select {
+  height: 35px;
+  width: 200px;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.game-mode-select:hover {
+  cursor: pointer;
+}
+
+.game-mode-select:disabled {
+  cursor: not-allowed;
+}
+
+.game-switch-btn {
+  height: 35px;
+  width: 65px;
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  background-color: dodgerblue;
+  text-transform: uppercase;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.game-switch-btn:hover:not(:disabled) {
+  background-color: deepskyblue;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.game-switch-btn:active:not(:disabled) {
+  background-color: dodgerblue;
+}
+
+.game-switch-btn:disabled {
+  cursor: not-allowed;
+  background-color: #A2A9B6;
+}
+
+.field-row {
+  display: flex;
+}
+
+.field-row:last-child .cell {
+  border-bottom-width: 1px;
+}
+
+.game-hovered-cells {
+  position: relative;
+  height: 90vh;
+  overflow: auto;
+}
+
+.game-hovered-cells::-webkit-scrollbar {
+  width: 8px;
+}
+
+.game-hovered-cells::-webkit-scrollbar-thumb {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  background-color: #A2A9B6;
+}
+
+.game-hovered-cells::-webkit-scrollbar-track {
+  margin-top: 60px;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.hovered-cells-title {
+  margin: 0;
+  line-height: 35px;
+  padding-bottom: 25px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background-color: #282c34;
+}
+
+.hovered-cells-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hovered-cells-item {
+  padding: 0.7rem 0.25rem;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #FBEFD7;
+  color: #8D7241;
+  background-color: #fbf8e3;
+  border-radius: 4px;
+}
+
+.hovered-cells-item:hover {
+  cursor: pointer;
+}

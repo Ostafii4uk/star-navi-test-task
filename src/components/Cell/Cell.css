@@ -1,0 +1,24 @@
+.cell {
+  width: 15px;
+  height: 15px;
+  background-color: aliceblue;
+  border: 1px solid black;
+  transition: all 0.2s ease-in-out;
+}
+
+.cell:not(:last-child) {
+  border-right-width: 0;
+}
+
+.cell {
+  border-bottom-width: 0;
+}
+
+.active-cell {
+  background-color: deepskyblue;
+}
+
+.active-cell-show {
+  transform: scale(1.3);
+  background-color:deeppink;
+}
