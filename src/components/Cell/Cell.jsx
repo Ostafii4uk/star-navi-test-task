@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import './Cell.css'
 
-const Cell = ({ row, column, setHoveredCells, hoveredCells }) => {
+const Cell = ({ row, column, setHoveredCells, hoveredCells, showedHoveredCell }) => {
   const [active, setActive] = useState(false)
+  const isShowHoveredCell = showedHoveredCell.row === row && showedHoveredCell.column === column
 
   const onHoverCell = () => {
     setActive(!active)
@@ -17,7 +18,7 @@ const Cell = ({ row, column, setHoveredCells, hoveredCells }) => {
   }
 
   return (
-    <div className={ `cell ${ active && 'active-cell' }` } onMouseEnter={ () => onHoverCell() }></div>
+    <div className={ `cell ${ active && 'active-cell' } ${ isShowHoveredCell && 'active-cell-show' }` } onMouseEnter={ () => onHoverCell() }></div>
   )
 }
 

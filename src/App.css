@@ -133,3 +133,7 @@
   background-color: #fbf8e3;
   border-radius: 4px;
 }
+
+.hovered-cells-item:hover {
+  cursor: pointer;
+}

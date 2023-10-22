@@ -10,6 +10,7 @@ const App = () => {
   const [field, setField] = useState(0)
   const [isStarted, setIsStarted] = useState(false)
   const [hoveredCells, setHoveredCells] = useState([])
+  const [showedHoveredCell, setShowedHoveredCell] = useState({})
 
   const getSortedHoveredCells = () => {
     return hoveredCells.sort((hoveredCellA, hoveredCellB) => hoveredCellA.row - hoveredCellB.row || hoveredCellA.column - hoveredCellB.column)
@@ -57,7 +58,7 @@ const App = () => {
                     <div className="field-row" key={ rowNumber }>
                       {
                         Array.from(Array(field).keys()).map((cellNumber) => (
-                          <Cell key={ cellNumber } row={ rowNumber + 1 } column={ cellNumber + 1 } setHoveredCells={ setHoveredCells } hoveredCells={ hoveredCells } />
+                          <Cell key={ cellNumber } row={ rowNumber + 1 } column={ cellNumber + 1 } setHoveredCells={ setHoveredCells } hoveredCells={ hoveredCells } showedHoveredCell={ showedHoveredCell } />
                         ))
                       }
                     </div>
@@ -71,7 +72,7 @@ const App = () => {
             <ul className='hovered-cells-list'>
               { 
                 getSortedHoveredCells().map(cell => (
-                  <li key={ `${cell.row}${cell.column}` } className='hovered-cells-item'>
+                  <li key={ `${cell.row}${cell.column}` } className='hovered-cells-item' onMouseEnter={ () => setShowedHoveredCell(cell) } onMouseLeave={ () => setShowedHoveredCell({}) }>
                     <span>row: { cell.row } column: { cell.column }</span>
                   </li>
                 ))
