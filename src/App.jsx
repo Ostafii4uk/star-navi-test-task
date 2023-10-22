@@ -3,6 +3,7 @@ import './App.css'
 import Api from './services/api'
 import Cell from './components/Cell/Cell'
 import Loader from './components/Loader/Loader'
+import { v4 as uuidv4 } from 'uuid'
 
 const App = () => {
   const [modes, setModes] = useState([])
@@ -72,7 +73,7 @@ const App = () => {
             <ul className='hovered-cells-list'>
               { 
                 getSortedHoveredCells().map(cell => (
-                  <li key={ `${cell.row}${cell.column}` } className='hovered-cells-item' onMouseEnter={ () => setShowedHoveredCell(cell) } onMouseLeave={ () => setShowedHoveredCell({}) }>
+                  <li key={ uuidv4() } className='hovered-cells-item' onMouseEnter={ () => setShowedHoveredCell(cell) } onMouseLeave={ () => setShowedHoveredCell({}) }>
                     <span>row: { cell.row } column: { cell.column }</span>
                   </li>
                 ))
