@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css'
+import { v4 as uuidv4 } from 'uuid';
 
 const Cell = ({ row, column, setHoveredCell, hoveredCells }) => {
   const [active, setActive] = useState(false)
@@ -9,7 +10,7 @@ const Cell = ({ row, column, setHoveredCell, hoveredCells }) => {
     const isUnHoveredCell = hoveredCells.find((hoveredCell) => hoveredCell.row === row && hoveredCell.column === column )
 
     if (isUnHoveredCell) {
-      const filteredCell = hoveredCells.filter(hoveredCell => !(hoveredCell.row === isUnHoveredCell.row && hoveredCell.column === isUnHoveredCell.column)).sort()
+      const filteredCell = hoveredCells.filter(hoveredCell => !(hoveredCell.row === isUnHoveredCell.row && hoveredCell.column === isUnHoveredCell.column))
       setHoveredCell(filteredCell)
     } else {
       setHoveredCell([ ...hoveredCells, { row, column } ])
@@ -37,6 +38,11 @@ const App = () => {
     return await res.json();
   }
 
+  const changeStatusGame = () => {
+    setHoveredCell([])
+    setIsStarted(!isStarted)
+  }
+
   useEffect(() => {
     setLoading(true)
     getModes()
@@ -49,50 +55,51 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>StarNavi: Test task</h1>
-        { loading
-          ?
-          <p>Loading...</p>
-          :
+      { loading 
+        ?
+        <span class="loader"></span>
+        :
         <div className='game'>
-          <div className='game-settings'>
-            <p>Fields:{ fields }</p>
-            <select className='game-mode-select' disabled={ isStarted } defaultValue={ fields } onChange={ (event) => setFields(event.target.value) }>
-              <option value={ 0 } disabled hidden>Pick mode</option>
-              { modes.map(mode => (
-                <option key={ mode.id } value={ mode.field }>{ mode.name }</option>
-              ))}
-            </select>
-            <button className='game-start-btn' disabled={ !fields } onClick={ () => setIsStarted(!isStarted) }>{ isStarted ? 'Stop' : 'Start'}</button>
-          </div>
-          <div className='game-fileds'>
-            { isStarted
-              &&
-              [...Array(Number(fields)).keys()].map((fieldCell, indexRow) => (
-                <div className="field-row">
-                  {
-                    [...Array(Number(fields)).keys()].map((fieldCell, indexColumn) => (
-                      <Cell row={ indexRow + 1 } column={ indexColumn + 1 } setHoveredCell={ setHoveredCell } hoveredCells={ hoveredCell } />
-                    ))
-                  }
-                </div>
-              ))
+          <div className="game-wrapper">
+            <div className='game-settings'>
+              <select className='game-mode-select' disabled={ isStarted } defaultValue={ fields } onChange={ (event) => setFields(event.target.value) }>
+                <option value={ 0 } disabled hidden>Pick mode</option>
+                { modes.map(mode => (
+                  <option key={ mode.id } value={ mode.field }>{ mode.name }</option>
+                ))}
+              </select>
+              <button className='game-start-btn' disabled={ !fields } onClick={ () => changeStatusGame() }>{ isStarted ? 'Stop' : 'Start'}</button>
+            </div>
+            { isStarted &&
+              <div className='game-fileds'>
+                {
+                  [...Array(Number(fields)).keys()].map((fieldCell, indexRow) => (
+                    <div className="field-row" key={ indexRow }>
+                      {
+                        [...Array(Number(fields)).keys()].map((fieldCell, indexColumn) => (
+                          <Cell key={ indexColumn } row={ indexRow + 1 } column={ indexColumn + 1 } setHoveredCell={ setHoveredCell } hoveredCells={ hoveredCell } />
+                        ))
+                      }
+                    </div>
+                  ))
+                }
+              </div>
             }
           </div>
-          <div className='game-hovered-cell'>
-            <ul>
+          <div className='game-hovered-cells'>
+            <h4 className='hovered-cells-title'>Hover squares</h4>
+            <ul className='hovered-cells-list'>
               {
-                hoveredCell.map(cell => (
-                  <li>
-                    <span>Column: { cell.column }</span>
-                    <span>Row: { cell.row }</span>
+                hoveredCell.sort((hoveredCellA, hoveredCellB) => hoveredCellA.row - hoveredCellB.row || hoveredCellA.column - hoveredCellB.column).map(cell => (
+                  <li key={ uuidv4() } className='hovered-cells-item'>
+                    <span>row { cell.row } column { cell.column }</span>
                   </li>
                 ))
               }
             </ul>
           </div>
         </div>
-        }
+      }
     </div>
   )
 }

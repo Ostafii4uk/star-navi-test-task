@@ -1,18 +1,27 @@
 .app {
-  background-color: #282c34;
-  min-height: 100vh;
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  min-height: 90vh;
 }
 
 .game {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.game-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
 .game-settings {
@@ -22,19 +31,46 @@
 }
 
 .game-mode-select {
+  height: 35px;
   width: 200px;
   padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.game-mode-select:hover {
+  cursor: pointer;
+}
+
+.game-mode-select:disabled {
+  cursor: not-allowed;
 }
 
 .game-start-btn {
-  padding: 0.5rem;
-  background-color: aqua;
+  height: 35px;
+  width: 65px;
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  background-color: dodgerblue;
   text-transform: uppercase;
   border: none;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
 }
 
-.game-start-btn:hover {
+.game-start-btn:hover:not(:disabled) {
+  background-color: deepskyblue;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.game-start-btn:active {
+  background-color: dodgerblue;
+}
+
+.game-start-btn:disabled {
+  cursor: not-allowed;
+  background-color: #A2A9B6;
 }
 
 .field-row {
@@ -42,17 +78,112 @@
 }
 
 .fields-cell {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background-color: aliceblue;
   border: 1px solid black;
 }
 
 .active-cell {
-  background-color: aqua;
+  background-color: deepskyblue;
 }
 
-.game-hovered-cell {
-  height: 300px;
-  overflow-y: scroll;
+.game-hovered-cells {
+  position: relative;
+  height: 90vh;
+  overflow: auto;
+}
+
+.game-hovered-cells::-webkit-scrollbar {
+  width: 8px;
+}
+
+.game-hovered-cells::-webkit-scrollbar-thumb {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  background-color: #A2A9B6;
+}
+
+.game-hovered-cells::-webkit-scrollbar-track {
+  margin-top: 60px;
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.hovered-cells-title {
+  margin: 0;
+  line-height: 35px;
+  padding-bottom: 25px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background-color: #282c34;
+}
+
+.hovered-cells-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hovered-cells-item {
+  padding: 0.7rem 0.25rem;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #FBEFD7;
+  color: #8D7241;
+  background-color: #fbf8e3;
+  border-radius: 4px;
+}
+
+
+.dank-ass-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .row {
+     display: flex;
+  }
+}
+
+
+
+.loader {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+}
+.loader::after,
+.loader::before {
+  content: '';  
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid dodgerblue;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: animloader 2s linear infinite;
+}
+.loader::after {
+  animation-delay: 1s;
+}
+
+@keyframes animloader {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
