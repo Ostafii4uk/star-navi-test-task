@@ -18,7 +18,7 @@ const Cell = ({ row, column, setHoveredCell, hoveredCells }) => {
   }
 
   return (
-    <div className={`fields-cell ${ active && 'active-cell' }`} onMouseEnter={ () => onHoverCell(row, column) }></div>
+    <div className={ `fields-cell ${ active && 'active-cell' }` } onMouseEnter={ () => onHoverCell(row, column) }></div>
   )
 }
 
