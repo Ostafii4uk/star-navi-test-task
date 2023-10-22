@@ -1,0 +1,18 @@
+.cell {
+  width: 15px;
+  height: 15px;
+  background-color: aliceblue;
+  border: 1px solid black;
+}
+
+.cell:not(:last-child) {
+  border-right-width: 0;
+}
+
+.cell {
+  border-bottom-width: 0;
+}
+
+.active-cell {
+  background-color: deepskyblue;
+}
