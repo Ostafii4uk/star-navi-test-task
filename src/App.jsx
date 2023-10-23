@@ -12,6 +12,7 @@ const App = () => {
   const [isStarted, setIsStarted] = useState(false)
   const [hoveredCells, setHoveredCells] = useState([])
   const [showedHoveredCell, setShowedHoveredCell] = useState({})
+  const [errorMessage, setErrorMessage] = useState('')
 
   const getSortedHoveredCells = () => {
     return hoveredCells.sort((hoveredCellA, hoveredCellB) => hoveredCellA.row - hoveredCellB.row || hoveredCellA.column - hoveredCellB.column)
@@ -19,6 +20,7 @@ const App = () => {
 
   const changeStatusGame = () => {
     setHoveredCells([])
+    setShowedHoveredCell({})
     setIsStarted(!isStarted)
   }
 
@@ -29,19 +31,27 @@ const App = () => {
         setModes(modes)
         setLoading(false)
       })
+      .catch(error => {
+        setLoading(false)
+        setErrorMessage(error.toString())
+      })
   }, [])
 
 
   return (
     <div className="app">
-      { loading 
-        ?
-        <Loader />
-        :
+      { loading && <Loader /> }
+      { errorMessage && <p>{ errorMessage }</p> }
+      { !loading && !errorMessage && modes.length > 0 &&
         <div className='game'>
           <div className="game-wrapper">
             <div className='game-settings'>
-              <select className='game-mode-select' disabled={ isStarted } defaultValue={ field } onChange={ (event) => setField(Number(event.target.value)) }>
+              <select
+                className='game-mode-select'
+                disabled={ isStarted || modes.length <= 0 }
+                defaultValue={ field }
+                onChange={ (event) => setField(Number(event.target.value)) }
+              >
                 <option value={ 0 } disabled hidden>Pick mode</option>
                 {
                   modes.map(mode => (
@@ -59,7 +69,14 @@ const App = () => {
                     <div className="field-row" key={ rowNumber }>
                       {
                         Array.from(Array(field).keys()).map((cellNumber) => (
-                          <Cell key={ cellNumber } row={ rowNumber + 1 } column={ cellNumber + 1 } setHoveredCells={ setHoveredCells } hoveredCells={ hoveredCells } showedHoveredCell={ showedHoveredCell } />
+                          <Cell
+                            key={ cellNumber }
+                            row={ rowNumber + 1 }
+                            column={ cellNumber + 1 }
+                            setHoveredCells={ setHoveredCells }
+                            hoveredCells={ hoveredCells }
+                            showedHoveredCell={ showedHoveredCell }
+                          />
                         ))
                       }
                     </div>
